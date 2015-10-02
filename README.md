@@ -9,6 +9,7 @@ Setup
 3. run `npm install -g bower`
 4. run `npm install -g gulp`
 5. run `npm install`
+6. run `bower install`
 6. run `gulp`
 7. launch your browser @ http://localhost:8080
 
