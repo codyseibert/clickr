@@ -7,3 +7,10 @@ body {
 }
 
 /*TODO: Create a box class, give it a width / height, position absolute, and a color*/
+
+.box {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  color: red;
+}

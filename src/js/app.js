@@ -21,10 +21,12 @@ $(document).ready(function() {
   function Position(left, top) {
     this.left = left;
     this.top = top;
+    
   }
 
   function boxClicked() {
     // TODO: Delete the box when it is clicked
+    $(".box").remove();
   }
 
   function createBox() {
@@ -32,16 +34,20 @@ $(document).ready(function() {
     // TODO: add the class "box" to the DIV
     // TODO: bind an event listener to the 'click' event
     //    HINT: Use "boxClicked" method
+    var $div = $("<div>", {class: "box"});
+    $div.addEventListener("click", boxClicked);
   }
 
   function appendBoxToBody($box) {
     // TODO: append the $box argument passed in to the body of the page
+    $("body").append($box);
   }
 
   function positionBoxRandomly($box) {
     // TODO: set the top and left attributes of the "$box" style to be somewhere
     // random on the page.
     // Hint: use the "getRandomPosition" function to get a position object
+    $("box").attr(style, Position);
   }
 
   function getRandomPosition() {
@@ -50,9 +56,13 @@ $(document).ready(function() {
 
   function getRandomLeft() {
     // TODO: Return a random position between 0 and the width of the window
+
+    left = Math.floor((Math.random() * $( window ).width()) + 0);
   }
 
   function getRandomTop() {
     // TODO: Return a random position between 0 and the width of the window
+    top = Math.floor((Math.random() * $( window ).width()) + 0);
+
   }
 });
