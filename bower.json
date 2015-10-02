@@ -1,0 +1,20 @@
+{
+  "name": "clickr",
+  "version": "0.0.0",
+  "homepage": "https://github.com/codyseibert/clickr",
+  "authors": [
+    "Cody Seibert <cseibert113@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "src/bower_components"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
