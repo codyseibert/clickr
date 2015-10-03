@@ -7,7 +7,7 @@ Setup
 
 1. git clone this project
 
-2. using a terminal, cd into the base folder of this project *on Windows, use Node's terminal instead*
+2. using a terminal, cd into the base folder of this project **on Windows, use Node's terminal instead**
 
 3. run `npm install -g bower`
 
