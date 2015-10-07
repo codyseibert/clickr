@@ -6,30 +6,14 @@ body {
   height: 100%;
 }
 
-/*TODO: Create a box class, give it a width / height, position absolute, and a color*/
-
 .box {
   width: 50px;
   height: 50px;
   position: absolute;
+/* Relative avoids the problem of the box going outside of the play field. */
   background-color: red;
 }
 
-#score {
-}
-#boxCount {
-}
-
-.panel {
-  border-color: black;
-  width: 500px;
-  height: 500px;
-}
-
-#navigationBar {
-  overflow: hidden;
-  position: relative;
-}
 
 #navigationBar ul {
   clear:left;
@@ -54,6 +38,8 @@ body {
 #navigationBar {
   width: 100%;
   background-color: grey;
+  overflow: hidden;
+  position: relative;
 }
 
 #navigationBar li {
@@ -85,22 +71,23 @@ a:hover, a:active {
 #practice, #stats, #global, #about {
 
 display: none;
-background-color: red;
+background-color: white;
+border: 2px solid black;
 position: absolute;
   top:0;
   bottom: 0;
   left: 0;
   right: 0;
   margin: auto;
-width: 50%;
-height: 50%;
+width: 100%;
+height: 85%;
 }
 
 .myButton {
 	background-color:#45a4c7;
 	border-radius:28px;
 	border:1px solid #ffffff;
-	display:block;
+	display:inline-block;
 	color:#ffffff;
 	font-size:17px;
 	font-weight:bold;
@@ -108,10 +95,17 @@ height: 50%;
 	text-decoration:none;
 	text-shadow:0px 1px 10px #000000;
   margin: 0 auto;
-  width: 100px;
-  left: 50%;
 }
 
 .myButton:hover {
 	background-color:#5bbecf;
+}
+
+p {
+  position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
