@@ -5,8 +5,7 @@ $(document).ready(function() {
 
 navigationClick();
 menuBarClick();
-gameStart();
-
+startClick();
 
 })
 
@@ -18,7 +17,8 @@ function menuBarClick() {
 
   $("#practice, #global, #stats, #about").hide();
 
-  $($(this).attr("href")).show("slow", function(e) {
+
+  $($(this).attr("href")).show(0, function(e) {
   });
 
 });
@@ -36,45 +36,82 @@ function navigationClick() {
 
 }
 
+function startClick(){
+
+  $("#startButton").click(function() {
+
+
+  $("#practice > .box").remove();
+  var counter = 4;
+
+
+  countdown = setInterval(function() {
+        counter--;
+        $("#startButton").hide();
+
+        if (counter >= 0) {
+          $(".startTimer").html(counter);
+          }
+
+        if (counter == 0) {
+          clearInterval(countdown);
+          $(".startTimer").hide();
+          $("#practice > div").show();
+
+          gameStart();
+
+                }
+      }, 1000)
+
+})}
+
+
  function gameStart() {
 
 
 
+  var attemptNumber = 0;
 
 
-  $("#startButton").click(function() {
 
   accuracyCount();
-  $("#practice").append(
-    $(".score"),
-    $(".boxCount"),
-    $(".accuracyCount"),
-    $('.timer')
-
-  )
-
-
+  killStack();
   // Declaring score and box count
-  $("#startButton").hide(100);
-  $("#practice > .box").remove();
+  var killStack = 1;// Killstack is an increasing variable, designed to kill the player
   var score = 0;
   var boxCount = 0;
   var clickCount = 0;
   var timeElapsed = new Date;
   var ONE_SECOND = 1000; // 1000ms === 1s
-
   // I'm making this the game loop - Nắng
 
   gameLoop = setInterval(function(){
 
-    $('.timer').text("Time elasped:" + Math.round((new Date - timeElapsed) / 1000, 0) + " Seconds");
-    var $box = mainGameCount();
-    appendBoxToPlayfield($box);
-    positionBoxRandomly($box);
     checkForVisible();
+    checkForLose();
+    scoreTrack();
 
 
   }, ONE_SECOND);
+
+  var spawnSpeed = function(){
+    clearInterval(speed);
+    var $box = mainGameCount();
+    appendBoxToPlayfield($box);
+    positionBoxRandomly($box);
+    speed = setInterval(spawnSpeed, ONE_SECOND - (killStack*1000));
+    }
+
+  var speed = setInterval(spawnSpeed, ONE_SECOND - (killStack*1000));
+
+
+
+  function scoreTrack() {
+      $("#practice > .score").text("Score: " + score);
+      $("#practice > .boxCount").text("Box count: " + boxCount);
+      $("#practice > .accuracyCount").text("Accuracy: " + Math.round((score / (clickCount) ) * 100, 2) + "%");
+      $('#practice > .timer').text("Time elasped:" + Math.round((new Date - timeElapsed) / 1000, 0) + " Seconds");
+  }
 
   function accuracyCount() {
 
@@ -86,7 +123,15 @@ function navigationClick() {
 
      }
 
+  function killStack() {
+    // Increases the kill stack variable up to a maximum of 10 stacks, every 10 seconds
+    setInterval(function(){
+      if (killStack <= 10) {
+        killStack++;
+      }
 
+    },  10000)
+  }
 
   function Position(left, top) {
 
@@ -99,7 +144,7 @@ function navigationClick() {
     if ($("#practice").is(":hidden")){
       clearInterval(gameLoop);
       $(".box").remove();
-      $("#startButton").show(100);
+      $("#startButton").show();
 
   }
 
@@ -112,36 +157,36 @@ function navigationClick() {
     boxCount++;
     $(".boxCount").text("Box count: " + boxCount);
     $div.click(function() {
-
-      $( this ).remove();
-      score++;
-      boxCount--;
-      $(".score").text("Score: " + score);
-      $(".boxCount").text("Box count: " + boxCount);
-      $(".accuracyCount").text("Accuracy: " + Math.round((score / clickCount) * 100, 2) + "%");
-
+        score++;
+        boxCount--;
+        $( this ).remove();
 
     });
 
-    // Player's lose condition
-    if (boxCount >= 11) {
-        clearInterval(gameLoop);
-        alert("You lose!");
-        $("#practice").hide();
-        $("#stats").show();
-        $(".boxCount").remove();
-        $("#startButton").show(100);
-        $("#practice > div").unbind("click");
-        $("#stats").append(
-          $(".score").text("Score: " + score),
-          $(".accuracyCount").text("Accuracy: " + Math.round((score / (clickCount - 1)) * 100, 2) + "%"),
-          $('.timer').text("Time elasped:" + Math.round((new Date - timeElapsed) / 1000, 0) + " Seconds")
-
-        );
-    }
 
     return $div;
 
+  }
+
+  function checkForLose() {
+    if (boxCount >= 6) {
+        clearInterval(gameLoop);
+        alert("You lose!");
+        attemptNumber++;
+        $("#practice").hide();
+        $("#stats").show();
+        $(".startTimer").show();
+        $(".startTimer").text(" ");
+        $(".boxCount").remove();
+        var $newScore = $("#practice > div").not("#startButton, .boxCount, .box").clone();
+        $("#stats").append("<h2>Run #" + attemptNumber + "</h2>");
+        $newScore.appendTo("#stats");
+        $("#practice > div").hide();
+        $("#startButton").show();
+
+
+
+    }
   }
 
   function checkForVisibility() {
@@ -180,5 +225,4 @@ function navigationClick() {
 
     }
 
-
-})}
+}

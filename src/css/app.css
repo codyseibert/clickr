@@ -10,8 +10,8 @@ body {
   width: 50px;
   height: 50px;
   position: absolute;
-/* Relative avoids the problem of the box going outside of the play field. */
   background-color: red;
+  animation: fadeOut 500ms;
 }
 
 
@@ -101,11 +101,6 @@ height: 85%;
 	background-color:#5bbecf;
 }
 
-p {
-  position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
+.scoreBoard {
+
 }
